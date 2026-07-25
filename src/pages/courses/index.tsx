@@ -1,7 +1,14 @@
+// App.tsx
+import { useEffect } from "react";
+import { buscarVideos } from "../../api/index";
+
 export function Courses() {
-  return (
-    <div>
-      <h2>Cursos oferecidos</h2>
-    </div>
-  );
+  useEffect(() => {
+    console.log("✅ App montado");
+
+    // 🔥 CHAMA A FUNÇÃO AQUI
+    buscarVideos();
+  }, []);
+
+  return <h1>Teste YouTube API</h1>;
 }

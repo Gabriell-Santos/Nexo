@@ -1,13 +1,8 @@
-// App.tsx
+import { searchVideos } from "../../api/index";
 import { useEffect } from "react";
-import { buscarVideos } from "../../api/index";
-
 export function Courses() {
   useEffect(() => {
-    console.log("✅ App montado");
-
-    // 🔥 CHAMA A FUNÇÃO AQUI
-    buscarVideos();
+    searchVideos();
   }, []);
 
   return <h1>Teste YouTube API</h1>;

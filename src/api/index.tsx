@@ -20,6 +20,7 @@ export const searchVideos = async (query: string) => {
         q: query,
         maxResults: 10,
         key: API_KEY,
+        relevanceLanguage: "pt",
       },
     });
 

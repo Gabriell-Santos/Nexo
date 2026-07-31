@@ -1,4 +1,5 @@
 import img from "../../../src/assets/pexels-pavel-danilyuk-7942535.jpg";
+import { Link } from "react-router-dom";
 export function Home() {
   return (
     <main className="min-h-screen bg-gray-50">
@@ -49,9 +50,13 @@ export function Home() {
                 aprofundar em um tema específico
               </li>
             </ul>
-            <p className="text-xl font-semibold text-gray-900">
+
+            <Link
+              to={"/courses"}
+              className=" text-black text-2xl hover:text-purple-600 font-medium transition-all duration-300 hover:scale-105 hover:underline underline-offset-4 decoration-purple-400"
+            >
               Bora começar? 🚀
-            </p>
+            </Link>
           </div>
 
           <div className="relative">

@@ -23,6 +23,9 @@ const CATEGORIES = [
 export function Courses() {
   const [categories, setCategories] = useState<VideosProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState<VideosProps[]>([]);
+  const [searchTerm, setsearchTerm] = useState("");
+  const [viewSearch, setViewSearch] = useState(false);
   // Assim que carregar a página Vai carregar os videos demo
   useEffect(() => {
     async function loadCategoryCourses() {
@@ -37,23 +40,66 @@ export function Courses() {
     loadCategoryCourses();
   }, []);
 
+  // Função que vai buscar o tipo de video que o usuario digitou
+  async function HandleSubmit() {
+    if (!searchTerm.trim() || searchTerm.length === 0) {
+      alert("Por favor, digite o nome do curso que deseja");
+    }
+    setViewSearch(true);
+    const resultsVideo = await searchVideos(searchTerm);
+    setSearchResults(resultsVideo);
+    setViewSearch(false);
+  }
+
+  const IsVideos = searchTerm.trim().length > 0;
+  const VideosUser = IsVideos ? searchResults : categories;
+
   return (
     <div className="max-w-6xl mx-auto mt-2.5 px-4">
       {/* Campo de busca */}
-      <div className="relative max-w-xl mx-auto mb-10">
-        <IoSearchOutline
-          size={22}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400 mt-1"
-        />
-        <Input placeholder="Digite o curso que deseja" className="pl-12" />
+      <div className="max-w-xl mx-auto mb-10 flex gap-2 mt-4 ">
+        <div className="relative flex-1">
+          <IoSearchOutline
+            size={22}
+            className="absolute left-3 top-1/2 mt-1 -translate-y-1/2 text-purple-400"
+          />
+          <Input
+            placeholder="Digite o curso que deseja"
+            className="pl-12"
+            value={searchTerm}
+            onChange={(e) => setsearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") HandleSubmit();
+            }}
+          />
+        </div>
+
+        <button
+          className="bg-purple-600
+         text-white 
+         font-medium
+          px-6 
+          rounded-lg
+         hover:bg-purple-700 
+         transition-colors"
+          onClick={HandleSubmit}
+        >
+          Buscar
+        </button>
       </div>
 
       {/* Lista de cursos */}
       <div>
-        <h2 className="text-2xl font-medium text-center mb-8 text-gray-900 ">
-          Segue alguns dos
-          <span className="text-fuchsia-600"> nossos cursos</span>
-        </h2>
+        {viewSearch ? (
+          <p className="text-2xl font-medium text-center mb-8 text-fuchsia-600 ">
+            Carregando Curso
+          </p>
+        ) : (
+          <h2 className="text-2xl font-medium text-center mb-8 text-gray-900 ">
+            Segue alguns dos
+            <span className="text-fuchsia-600"> nossos cursos</span>
+          </h2>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {/* Mostrando o loading */}
@@ -62,7 +108,7 @@ export function Courses() {
               Carregando cursos...
             </p>
           )}
-          {categories.map((video) => (
+          {VideosUser.map((video) => (
             <section
               className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               key={video.id}

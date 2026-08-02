@@ -47,6 +47,7 @@ export function Courses() {
       alert("Por favor, digite o nome do curso que deseja");
     }
     setViewSearch(true);
+
     const resultsVideo = await searchVideos(searchTerm);
     setSearchResults(resultsVideo);
     setViewSearch(false);
@@ -91,14 +92,19 @@ export function Courses() {
 
       {/* Lista de cursos */}
       <div>
-        {viewSearch ? (
-          <p className="text-2xl font-medium text-center mb-8 text-fuchsia-600 ">
-            Carregando Curso
-          </p>
-        ) : (
-          <h2 className="text-2xl font-medium text-center mb-8 text-gray-900 ">
+        {!IsVideos ? (
+          <h2 className="text-2xl font-medium text-center mb-8 text-gray-900">
             Segue alguns dos
             <span className="text-fuchsia-600"> nossos cursos</span>
+          </h2>
+        ) : viewSearch ? (
+          <p className="text-2xl font-medium text-center mb-8 text-fuchsia-600">
+            Loading....
+          </p>
+        ) : (
+          <h2 className="text-2xl font-medium text-center mb-8 text-gray-900">
+            Resultados para
+            <span className="text-fuchsia-600"> "{searchTerm}"</span>
           </h2>
         )}
 

@@ -3,6 +3,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import type { VideosProps } from "../../api/index";
 import { searchVideos } from "../../api/index";
+import { Link } from "react-router-dom";
 
 // Videos que vão aparecer assim que o usuario acessar a tela
 const CATEGORIES = [
@@ -127,7 +128,7 @@ export function Courses() {
                 </p>
                 <div className="flex items-center justify-between">
                   <button className="text-sm font-medium text-purple-600 hover:text-purple-700">
-                    Saber mais
+                    <Link to={`/details/${video.id}`}> Saber Mais </Link>
                   </button>
 
                   <a

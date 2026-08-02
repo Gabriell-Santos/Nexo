@@ -3,6 +3,7 @@ import { Layout } from "./components/layout";
 import { Home } from "./pages/home/Home";
 import { Courses } from "./pages/courses";
 import { Mycourses } from "./pages/mycourses";
+import { Details } from "./pages/details";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "/mycourses",
         element: <Mycourses />,
+      },
+      {
+        path: "/details/:id",
+        element: <Details />,
       },
     ],
   },

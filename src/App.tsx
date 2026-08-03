@@ -4,6 +4,7 @@ import { Home } from "./pages/home/Home";
 import { Courses } from "./pages/courses";
 import { Mycourses } from "./pages/mycourses";
 import { Details } from "./pages/details";
+import { SignOut } from "./pages/SignOut";
 
 export const router = createBrowserRouter([
   {
@@ -26,5 +27,9 @@ export const router = createBrowserRouter([
         element: <Details />,
       },
     ],
+  },
+  {
+    path: "/signout",
+    element: <SignOut />,
   },
 ]);

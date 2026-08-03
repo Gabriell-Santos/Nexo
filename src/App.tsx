@@ -5,6 +5,7 @@ import { Courses } from "./pages/courses";
 import { Mycourses } from "./pages/mycourses";
 import { Details } from "./pages/details";
 import { SignOut } from "./pages/SignOut";
+import { SignUp } from "./pages/signUp";
 
 export const router = createBrowserRouter([
   {
@@ -31,5 +32,9 @@ export const router = createBrowserRouter([
   {
     path: "/signout",
     element: <SignOut />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
 ]);

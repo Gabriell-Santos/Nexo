@@ -1,6 +1,51 @@
 import { Input } from "../../components/ui/input";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../services/firebaseConnection";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
+
+  // Função para lidar com o envio do formulário
+  async function handleSignUp(event: React.FormEvent) {
+    event.preventDefault(); // Evita o comportamento padrão do formulário
+    try {
+      // Cria um novo usuário com email e senha
+      const CreateUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      // Atualiza o perfil do usuário com o nome fornecido
+      await updateProfile(CreateUser.user, {
+        displayName: name.trim(),
+      });
+      setError("");
+      setEmail("");
+      setName("");
+      setPassword("");
+      // Redireciona para a página de login após o cadastro bem-sucedido
+      navigate("/signout");
+    } catch (error: any) {
+      if (error.code === "auth/weak-password") {
+        setError(
+          "A senha é muito fraca. Use pelo menos 6 caracteres com letras e números.",
+        );
+        return;
+      } else if (error.code === "auth/email-already-in-use") {
+        setError("Este email já está em uso.");
+        return;
+      } else if (error.code === "auth/invalid-email") {
+        setError("Email inválido. Digite um email válido.");
+        return;
+      }
+    }
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
@@ -12,7 +57,7 @@ export function SignUp() {
           <p className="text-gray-500 mt-2">Cadastre-se para continuar</p>
         </div>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSignUp} className="space-y-4">
           <div>
             <label
               htmlFor="name"
@@ -21,6 +66,9 @@ export function SignUp() {
               Nome:
             </label>
             <Input
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               type="text"
               id="name"
               placeholder="Digite seu Primeiro nome"
@@ -35,6 +83,9 @@ export function SignUp() {
               Email:
             </label>
             <Input
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
               placeholder="Digite seu email"
@@ -50,6 +101,9 @@ export function SignUp() {
               Senha:
             </label>
             <Input
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               id="password"
               type="password"
               placeholder="Digite sua senha"
@@ -57,11 +111,17 @@ export function SignUp() {
             />
           </div>
 
+          {error && (
+            <span className="text-red-500 text-sm block mt-2 text-center">
+              Erro: {error}
+            </span>
+          )}
+
           <button
             type="submit"
             className="w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02]"
           >
-            Entrar
+            Cadastrar
           </button>
         </form>
 

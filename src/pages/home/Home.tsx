@@ -22,7 +22,7 @@ export function Home() {
         <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block font-semibold text-sm uppercase tracking-wide mb-3">
-              O conhecimento não tem{" "}
+              O conhecimento não tem
               <span className="text-fuchsia-600">limite</span>
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">

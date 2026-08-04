@@ -18,7 +18,7 @@ export const searchVideos = async (query: string) => {
         part: "snippet",
         type: "video",
         q: query,
-        maxResults: 15,
+        maxResults: 10,
         key: API_KEY,
         relevanceLanguage: "pt",
       },

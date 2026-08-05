@@ -1,10 +1,35 @@
 import { Input } from "../../components/ui/input";
 import { auth } from "../../services/firebaseConnection";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function SignOut() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  // função que lida com o envio do formulário
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault(); // Evita o comportamento padrão do formulário
+    try {
+      // Tenta fazer login com email e senha
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      setError("");
+      setEmail("");
+      setPassword("");
+      // Redireciona para a página inicial após o login bem-sucedido
+      navigate("/courses");
+    } catch (error: any) {
+      setError("Email ou senha incorretos.");
+      return;
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
@@ -16,7 +41,7 @@ export function SignOut() {
           <p className="text-gray-500 mt-2">Faça login para continuar</p>
         </div>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="email"
@@ -25,6 +50,9 @@ export function SignOut() {
               Email:
             </label>
             <Input
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
               placeholder="Digite seu email"
@@ -40,12 +68,21 @@ export function SignOut() {
               Senha:
             </label>
             <Input
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               id="password"
               type="password"
               placeholder="Digite sua senha"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent transition duration-200"
             />
           </div>
+
+          {error && (
+            <span className="text-red-500 text-sm block mt-2 text-center">
+              Erro: {error}
+            </span>
+          )}
 
           <button
             type="submit"

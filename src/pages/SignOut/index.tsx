@@ -105,7 +105,7 @@ export function SignOut() {
           <span className="text-sm text-gray-600">
             Esqueceu sua senha?
             <a
-              href="/forgot-password"
+              href="/recoverpassword"
               className="text-indigo-600 hover:text-fuchsia-800 font-medium hover:underline transition duration-200"
             >
               Clique aqui

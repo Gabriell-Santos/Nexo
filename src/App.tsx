@@ -6,6 +6,7 @@ import { Mycourses } from "./pages/mycourses";
 import { Details } from "./pages/details";
 import { SignOut } from "./pages/SignOut";
 import { SignUp } from "./pages/signUp";
+import { Recoverpassword } from "./pages/Recoverpassword";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <Details />,
+      },
+      {
+        path: "/recoverpassword",
+        element: <Recoverpassword />,
       },
     ],
   },

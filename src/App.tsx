@@ -7,6 +7,7 @@ import { Details } from "./pages/details";
 import { SignOut } from "./pages/SignOut";
 import { SignUp } from "./pages/signUp";
 import { Recoverpassword } from "./pages/Recoverpassword";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/mycourses",
-        element: <Mycourses />,
+        element: (
+          <ProtectedRoute>
+            <Mycourses />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/details/:id",

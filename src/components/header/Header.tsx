@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdAccountCircle, MdPerson } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts";
 
 export function Header() {
-  const [login, setLogin] = useState(true);
   const [hamburgermenu, setHamburgermenu] = useState(false);
+  const { userAuth } = useContext(AuthContext);
 
   return (
     <header className="flex items-center w-full h-16 justify-around px-8 py-3 from-purple-50 to-white shadow-md border-b-2 border-purple-200 relative">
@@ -64,20 +66,30 @@ export function Header() {
         <div
           className="ml-4 p-1 rounded-full hover:bg-purple-100 transition-all duration-300 cursor-pointer"
           onClick={() => {
-            setLogin(!login);
             setHamburgermenu(false); //  FECHA O MENU AO CLICAR
           }}
         >
-          {login ? (
-            <MdPerson
-              className="text-purple-600 hover:text-purple-700 transition-colors"
-              size={34}
-            />
+          {userAuth ? (
+            <div className="flex gap-2 text-sm items-center font-medium p-1">
+              <MdPerson
+                className="text-purple-600 hover:text-purple-700 transition-colors"
+                size={34}
+              />
+              <p className="">
+                Bem vindo,
+                <span className="text-purple-600 font-medium">
+                  {userAuth.name}
+                </span>
+              </p>
+            </div>
           ) : (
-            <MdAccountCircle
-              className="text-purple-400 hover:text-purple-600 transition-colors"
-              size={34}
-            />
+            <div className="flex gap-2 text-sm items-center font-medium p-1">
+              <MdAccountCircle
+                className="text-purple-400 hover:text-purple-600 transition-colors"
+                size={34}
+              />
+              <p className="">Olá Visitante</p>
+            </div>
           )}
         </div>
       </nav>

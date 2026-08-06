@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import type { VideosProps } from "../../api/index";
 import { searchVideos } from "../../api/index";
 import { Link } from "react-router-dom";
-import { ProtectedRoute } from "../../components/ProtectedRoute";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../services/firebaseConnection";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts";
+import { useNavigate } from "react-router-dom";
 // Videos que vão aparecer assim que o usuario acessar a tela
 const CATEGORIES = [
   {
@@ -27,6 +31,8 @@ export function Courses() {
   const [searchResults, setSearchResults] = useState<VideosProps[]>([]);
   const [searchTerm, setsearchTerm] = useState("");
   const [viewSearch, setViewSearch] = useState(false);
+  const { userAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
   // Assim que carregar a página Vai carregar os videos demo
   useEffect(() => {
     async function loadCategoryCourses() {
@@ -45,6 +51,7 @@ export function Courses() {
   async function HandleSubmit() {
     if (!searchTerm.trim() || searchTerm.length === 0) {
       alert("Por favor, digite o nome do curso que deseja");
+      return;
     }
     setViewSearch(true);
 
@@ -55,6 +62,35 @@ export function Courses() {
 
   const IsVideos = searchTerm.trim().length > 0;
   const VideosUser = IsVideos ? searchResults : categories;
+
+  // Função que salva o video no banco de dados
+  const SalveVideoToFirebase = async (IdUser: string, videoId: VideosProps) => {
+    const videoRef = collection(db, "users", IdUser, "videos assistidos");
+    await addDoc(videoRef, {
+      url: videoId.url,
+      titulo: videoId.title,
+      descricao: videoId.description,
+      thumbnail: videoId.thumbnail,
+      assistidoEm: new Date(),
+      videoId: videoId.id,
+    });
+  };
+
+  // Função que vai verificar se tem usuario logado
+  const UserLogin = async function (video: VideosProps, callback: () => void) {
+    // verifica se o usuario está logado ]
+    if (!userAuth) {
+      alert("ops.. é necessario estar logado para essa ação");
+      navigate("/signup");
+      return;
+    }
+    try {
+      await SalveVideoToFirebase(userAuth.id, video);
+      callback();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto mt-2.5 px-4">
@@ -142,6 +178,12 @@ export function Courses() {
                     href={video.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      UserLogin(video, () => {
+                        window.open(video.url, "_blank");
+                      });
+                    }}
                   >
                     Assistir
                   </a>

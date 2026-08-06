@@ -32,8 +32,8 @@ export function SignUp() {
       setEmail("");
       setName("");
       setPassword("");
-      // Redireciona para a página de login após o cadastro bem-sucedido
-      navigate("/");
+      // Redireciona para a página de cursos após o cadastro bem-sucedido
+      navigate("/cousers");
     } catch (error: any) {
       if (error.code === "auth/weak-password") {
         setError(

@@ -9,6 +9,7 @@ export function SignUp() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+
   const navigate = useNavigate();
 
   // Função para lidar com o envio do formulário
@@ -21,16 +22,18 @@ export function SignUp() {
         email,
         password,
       );
+
       // Atualiza o perfil do usuário com o nome fornecido
       await updateProfile(CreateUser.user, {
         displayName: name.trim(),
       });
+
       setError("");
       setEmail("");
       setName("");
       setPassword("");
       // Redireciona para a página de login após o cadastro bem-sucedido
-      navigate("/signout");
+      navigate("/");
     } catch (error: any) {
       if (error.code === "auth/weak-password") {
         setError(

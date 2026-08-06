@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import type { VideosProps } from "../../api/index";
 import { searchVideos } from "../../api/index";
 import { Link } from "react-router-dom";
-
+import { ProtectedRoute } from "../../components/ProtectedRoute";
 // Videos que vão aparecer assim que o usuario acessar a tela
 const CATEGORIES = [
   {

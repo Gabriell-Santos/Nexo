@@ -8,6 +8,7 @@ import { SignOut } from "./pages/SignOut";
 import { SignUp } from "./pages/signUp";
 import { Recoverpassword } from "./pages/Recoverpassword";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { NotFound } from "./pages/notFound";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "/recoverpassword",
         element: <Recoverpassword />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

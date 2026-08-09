@@ -23,7 +23,7 @@ export function Home() {
           <div>
             <span className="inline-block font-semibold text-sm uppercase tracking-wide mb-3">
               O conhecimento não tem
-              <span className="text-fuchsia-600">limite</span>
+              <span className="text-fuchsia-600"> limite</span>
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Sua próxima conquista começa com um clique

@@ -15,6 +15,7 @@ type userProps = {
   id: string;
   email: string | null;
   name: string | null;
+  date: Date | null;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -30,6 +31,9 @@ export function AuthProvider({ children }: ProviderProps) {
           id: user.uid,
           email: user?.email,
           name: user?.displayName,
+          date: user?.metadata?.creationTime
+            ? new Date(user.metadata.creationTime)
+            : null,
         });
       } else {
         setUser(null);

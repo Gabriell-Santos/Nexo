@@ -1,5 +1,6 @@
 import { Input } from "../../components/ui/input";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 import { auth } from "../../services/firebaseConnection";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,10 +29,13 @@ export function SignUp() {
         displayName: name.trim(),
       });
 
+      // Salva a  data de criação ]
+
       setError("");
       setEmail("");
       setName("");
       setPassword("");
+
       // Redireciona para a página de cursos após o cadastro bem-sucedido
       navigate("/cousers");
     } catch (error: any) {

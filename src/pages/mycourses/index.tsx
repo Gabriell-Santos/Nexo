@@ -66,7 +66,7 @@ export function Mycourses() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* TÍTULO */}
       {listVideos.length === 0 ? (
-        <h2 className="text-2xl justify-center  font-bold text-gray-800 mb-9 flex items-center gap-2">
+        <h2 className="text-sm sm:text-2xl justify-center font-bold text-gray-800 mb-9 flex items-center gap-2">
           <svg
             className="w-6 h-6 text-purple-600"
             fill="currentColor"

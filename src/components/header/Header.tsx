@@ -73,10 +73,12 @@ export function Header() {
             onClick={closeMenu}
           >
             {userAuth ? (
-              <MdPerson
-                className="text-purple-600 hover:text-purple-700 transition-colors"
-                size={34}
-              />
+              <Link to={"/account"}>
+                <MdPerson
+                  className="text-purple-600 hover:text-purple-700 transition-colors"
+                  size={34}
+                />
+              </Link>
             ) : (
               <MdAccountCircle
                 className="text-purple-400 hover:text-purple-600 transition-colors"

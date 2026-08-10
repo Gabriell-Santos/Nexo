@@ -43,10 +43,6 @@ export const router = createBrowserRouter([
         path: "/account",
         element: <Account />,
       },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
     ],
   },
   {
@@ -56,5 +52,9 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

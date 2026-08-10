@@ -37,7 +37,7 @@ export function SignUp() {
       setPassword("");
 
       // Redireciona para a página de cursos após o cadastro bem-sucedido
-      navigate("/cousers");
+      navigate("/courses");
     } catch (error: any) {
       if (error.code === "auth/weak-password") {
         setError(

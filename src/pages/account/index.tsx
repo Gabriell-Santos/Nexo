@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts";
+import { signOut } from "firebase/auth";
+import { auth } from "../../services/firebaseConnection";
 export function Account() {
   const { userAuth } = useContext(AuthContext);
+
+  // função de sair da conta
+  async function handleLogout() {
+    await signOut(auth);
+    alert("Deslogado com Sucesso");
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       {userAuth && (
@@ -44,7 +53,7 @@ export function Account() {
             </Link>
 
             <button
-              onClick={() => console.log("Logout!")}
+              onClick={() => handleLogout()}
               className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 hover:scale-[1.02]"
             >
               Sair da conta

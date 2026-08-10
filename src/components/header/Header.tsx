@@ -80,10 +80,12 @@ export function Header() {
                 />
               </Link>
             ) : (
-              <MdAccountCircle
-                className="text-purple-400 hover:text-purple-600 transition-colors"
-                size={34}
-              />
+              <Link to={"/signup"}>
+                <MdAccountCircle
+                  className="text-purple-400 hover:text-purple-600 transition-colors"
+                  size={34}
+                />
+              </Link>
             )}
           </div>
 

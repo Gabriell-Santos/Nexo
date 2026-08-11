@@ -11,7 +11,7 @@ export function Recoverpassword() {
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
     try {
-      const EmailVerification = await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, email);
       toast.success("E-mail de recuperação enviado com sucesso:");
       navigate("/signout");
     } catch (error: any) {

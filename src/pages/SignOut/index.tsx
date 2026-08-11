@@ -16,7 +16,7 @@ export function SignOut() {
     event.preventDefault(); // Evita o comportamento padrão do formulário
     try {
       // Tenta fazer login com email e senha
-      const userCredential = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         email,
         password,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../services/firebaseConnection";
+import { toast } from "react-toastify";
 export function Recoverpassword() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export function Recoverpassword() {
     event.preventDefault(); // Evita o comportamento padrão do formulário
     try {
       const EmailVerification = await sendPasswordResetEmail(auth, email);
-      alert("E-mail de recuperação enviado com sucesso:");
+      toast.success("E-mail de recuperação enviado com sucesso:");
       navigate("/signout");
     } catch (error: any) {
       console.error("Erro ao enviar o e-mail de recuperação:", error);

@@ -3,6 +3,7 @@ import { auth } from "../../services/firebaseConnection";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export function SignOut() {
   const [email, setEmail] = useState("");
@@ -24,6 +25,7 @@ export function SignOut() {
       setEmail("");
       setPassword("");
       // Redireciona para a página inicial após o login bem-sucedido
+      toast.success("Login realizado com sucesso");
       navigate("/courses");
     } catch (error: any) {
       setError("Email ou senha incorretos.");

@@ -11,12 +11,13 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/index";
 import { useContext } from "react";
 import { db } from "../../services/firebaseConnection";
+import { toast } from "react-toastify";
 
 export function Mycourses() {
   const { userAuth } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [listVideos, setListVideos] = useState<VideosProps[]>([]);
-  // Verifica se tem videos no firebase
+  // Verifica se tem usuario
   useEffect(() => {
     if (!userAuth) {
       setLoading(false);
@@ -60,7 +61,7 @@ export function Mycourses() {
       idVideo,
     );
     await deleteDoc(videoRef);
-    alert("Deletado com Sucesso");
+    toast.success("Deletado com Sucesso");
   }
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">

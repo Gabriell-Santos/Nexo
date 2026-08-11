@@ -9,6 +9,7 @@ import { db } from "../../services/firebaseConnection";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 // Videos que vão aparecer assim que o usuario acessar a tela
 const CATEGORIES = [
   {
@@ -50,7 +51,7 @@ export function Courses() {
   // Função que vai buscar o tipo de video que o usuario digitou
   async function HandleSubmit() {
     if (!searchTerm.trim() || searchTerm.length === 0) {
-      alert("Por favor, digite o nome do curso que deseja");
+      toast.error("Por favor, digite o nome do curso que deseja");
       return;
     }
     setViewSearch(true);
@@ -80,7 +81,7 @@ export function Courses() {
   const UserLogin = async function (video: VideosProps, callback: () => void) {
     // verifica se o usuario está logado ]
     if (!userAuth) {
-      alert("ops.. é necessario estar logado para essa ação");
+      toast.info("ops.. é necessario estar logado para essa ação");
       navigate("/signup");
       return;
     }

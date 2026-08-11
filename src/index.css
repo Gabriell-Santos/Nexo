@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+.Toastify__toast--success {
+  background: #6a1b9a !important;
+  color: white !important;
+}
+
+/* Deixa o texto do body também branco nos toasts de sucesso */
+.Toastify__toast--success .Toastify__toast-body {
+  color: white !important;
+}
+
+/* Barra de progresso branca nos toasts de sucesso */
+.Toastify__toast--success .Toastify__progress-bar {
+  background: white !important;
+}
+
+/* Botão de fechar branco nos toasts de sucesso */
+.Toastify__toast--success .Toastify__close-button {
+  color: white !important;
+}

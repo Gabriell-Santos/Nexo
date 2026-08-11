@@ -1,6 +1,6 @@
 import { Input } from "../../components/ui/input";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-
+import { toast } from "react-toastify";
 import { auth } from "../../services/firebaseConnection";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +37,7 @@ export function SignUp() {
       setPassword("");
 
       // Redireciona para a página de cursos após o cadastro bem-sucedido
+      toast.success("Cadastro realizado com sucesso");
       navigate("/courses");
     } catch (error: any) {
       if (error.code === "auth/weak-password") {

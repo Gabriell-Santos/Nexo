@@ -3,13 +3,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebaseConnection";
+import { toast } from "react-toastify";
 export function Account() {
   const { userAuth } = useContext(AuthContext);
 
   // função de sair da conta
   async function handleLogout() {
     await signOut(auth);
-    alert("Deslogado com Sucesso");
+    toast.success("Deslogado com Sucesso");
   }
 
   return (

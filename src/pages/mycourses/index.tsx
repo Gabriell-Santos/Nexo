@@ -37,8 +37,8 @@ export function Mycourses() {
         listCourses.push({
           id: doc.id,
           url: data.url,
-          title: data.titulo,
-          description: data.descricao,
+          title: data.title,
+          description: data.description,
           thumbnail: data.thumbnail,
         });
       });
@@ -143,15 +143,8 @@ export function Mycourses() {
                   <a
                     href={videoData.url}
                     target="_blank"
-                    className="text-xs font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1 transition-colors"
+                    className="text-xs sm:text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1 transition-colors"
                   >
-                    <svg
-                      className="w-3 h-3"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
                     Assistir
                   </a>
 

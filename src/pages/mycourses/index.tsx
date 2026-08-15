@@ -143,7 +143,7 @@ export function Mycourses() {
                   <a
                     href={videoData.url}
                     target="_blank"
-                    className="text-xs sm:text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1 transition-colors"
+                    className="text-sm sm:text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1 transition-colors"
                   >
                     Assistir
                   </a>

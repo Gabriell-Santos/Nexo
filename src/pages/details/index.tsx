@@ -51,18 +51,21 @@ export function Details() {
               {detailsVideo.title}
             </h2>
 
-            <div className="flex items-center gap-4 justify-around">
+            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center w-full">
               <a
                 href={detailsVideo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-purple-600 text-white font-medium px-6 py-2.5 rounded-lg hover:bg-purple-700 transition-colors"
+                className="w-full sm:w-auto text-center bg-purple-600 text-white font-medium px-6 py-2.5 rounded-lg hover:bg-purple-700 transition-colors"
               >
                 Assistir no YouTube
               </a>
-              <button className="bg-purple-600 text-white font-medium px-6 py-2.5 rounded-lg hover:bg-purple-700 transition-colors">
-                <Link to={"/courses"}> Voltar </Link>
-              </button>
+              <Link
+                to="/courses"
+                className="w-full sm:w-auto text-center bg-purple-600 text-white font-medium px-6 py-2.5 rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                Voltar
+              </Link>
             </div>
           </div>
         </main>

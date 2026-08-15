@@ -77,21 +77,7 @@ export function Courses() {
     });
   };
 
-  // Função que vai verificar se tem usuario logado
-  const UserLogin = async function (video: VideosProps, callback: () => void) {
-    // verifica se o usuario está logado ]
-    if (!userAuth) {
-      toast.info("ops.. é necessario estar logado para essa ação");
-      navigate("/signup");
-      return;
-    }
-    try {
-      await SalveVideoToFirebase(userAuth.id, video);
-      callback();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   return (
     <div className="max-w-6xl mx-auto mt-2.5 px-4">
@@ -180,10 +166,15 @@ export function Courses() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      e.preventDefault();
-                      UserLogin(video, () => {
-                        window.open(video.url, "_blank");
-                      });
+                      if (!userAuth) {
+                        e.preventDefault();
+                        toast.info("ops.. é necessario estar logado para essa ação");
+                        navigate("/signup");
+                      } else {
+                        // Permite abrir em nova aba diretamente (ação do usuário)
+                        // E salva no banco de dados em segundo plano
+                        SalveVideoToFirebase(userAuth.id, video);
+                      }
                     }}
                   >
                     Assistir

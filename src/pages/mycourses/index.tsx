@@ -14,11 +14,13 @@ import { db } from "../../services/firebaseConnection";
 import { toast } from "react-toastify";
 
 export function Mycourses() {
-  const { userAuth } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
+  const { userAuth, loadingAuth } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const [listVideos, setListVideos] = useState<VideosProps[]>([]);
   // Verifica se tem usuario
   useEffect(() => {
+    if (loadingAuth) return;
+
     if (!userAuth) {
       setLoading(false);
       return;
@@ -46,7 +48,7 @@ export function Mycourses() {
       setLoading(false);
     });
     return () => unsubscribe();
-  }, [userAuth]);
+  }, [userAuth, loadingAuth]);
 
   // Função de deletar video do firebase
   async function DeleteVideo(idVideo: string) {
@@ -66,28 +68,30 @@ export function Mycourses() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* TÍTULO */}
-      {listVideos.length === 0 ? (
-        <h2 className="text-sm sm:text-2xl justify-center font-bold text-gray-800 mb-9 flex items-center gap-2">
-          <svg
-            className="w-6 h-6 text-purple-600"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z" />
-          </svg>
-          Ops Não tem nenhum curso salvo
-        </h2>
-      ) : (
-        <h2 className="text-2xl justify-center  font-bold text-gray-800 mb-9 flex items-center gap-2">
-          <svg
-            className="w-6 h-6 text-purple-600"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z" />
-          </svg>
-          Cursos Salvos
-        </h2>
+      {!loading && (
+        listVideos.length === 0 ? (
+          <h2 className="text-sm sm:text-2xl justify-center font-bold text-gray-800 mb-9 flex items-center gap-2">
+            <svg
+              className="w-6 h-6 text-purple-600"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z" />
+            </svg>
+            Ops Não tem nenhum curso salvo
+          </h2>
+        ) : (
+          <h2 className="text-lg sm:text-2xl justify-center  font-bold text-gray-800 mb-9 flex items-center gap-2">
+            <svg
+              className="w-6 h-6 text-purple-600"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z" />
+            </svg>
+            Cursos Salvos
+          </h2>
+        )
       )}
 
       {/* GRID DE CARDS */}
@@ -105,9 +109,11 @@ export function Mycourses() {
               key={videoData.id}
             >
               {/* IMAGEM */}
-              <div
-                className="relative group"
-                onClick={() => window.open(videoData.url, "_blank")}
+              <a
+                href={videoData.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative group block cursor-pointer"
               >
                 <img
                   src={videoData.thumbnail}
@@ -126,7 +132,7 @@ export function Mycourses() {
                     </svg>
                   </span>
                 </div>
-              </div>
+              </a>
 
               {/* CONTEÚDO */}
               <div className="p-4">

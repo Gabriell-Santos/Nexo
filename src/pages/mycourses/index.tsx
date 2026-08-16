@@ -36,11 +36,12 @@ export function Mycourses() {
       const listCourses: VideosProps[] = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
+        console.log(data);
         listCourses.push({
           id: doc.id,
           url: data.url,
-          title: data.title,
-          description: data.description,
+          title: data.titulo,
+          description: data.descricao,
           thumbnail: data.thumbnail,
         });
       });
@@ -68,8 +69,8 @@ export function Mycourses() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* TÍTULO */}
-      {!loading && (
-        listVideos.length === 0 ? (
+      {!loading &&
+        (listVideos.length === 0 ? (
           <h2 className="text-sm sm:text-2xl justify-center font-bold text-gray-800 mb-9 flex items-center gap-2">
             <svg
               className="w-6 h-6 text-purple-600"
@@ -91,8 +92,7 @@ export function Mycourses() {
             </svg>
             Cursos Salvos
           </h2>
-        )
-      )}
+        ))}
 
       {/* GRID DE CARDS */}
       {loading ? (
